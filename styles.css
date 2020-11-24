@@ -1,0 +1,12 @@
+#header {
+  height: 70px;
+  padding: 30px 40px;
+}
+
+.waves {
+  position: absolute;
+  width: 1440px;
+  height: 324px;
+  left: 0px;
+  top: 564px;
+}
