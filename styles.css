@@ -1,12 +1,79 @@
+body {
+  font-family: 'Overpass Mono', monospace;
+  /* background-color:#222831 */
+}
+
 #header {
   height: 70px;
   padding: 30px 40px;
 }
 
-.waves {
+.nav-button {
+  font-family: 'Overpass Mono';
+  color: #EEEEEE;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  background-color: #4F8A8B;
+  border-radius: 80px;
+  margin-left: 30px;
+  padding: 8px 20px;
+}
+
+.nav-button:hover {
+  background-color: #EEEEEE;
+  color: #222831;
+}
+
+#intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
   position: absolute;
-  width: 1440px;
-  height: 324px;
+  width: 729px;
+  height: 286px;
+  left: 136px;
+  top: 175px;
+}
+
+.greeting {
+  font-family: 'Overpass Mono', monospace;
+  font-weight: bold;
+  font-size: 4rem;
+  color: #EEEEEE;
+}
+
+.subtitle {
+  font-family: 'Overpass Mono', monospace;
+  font-weight: lighter;
+  font-size: 2rem;
+  color: #FBD46D;
+  letter-spacing: 8px;
+  line-height: 40px;
+}
+
+#waves {
+  position: absolute;
+  min-width: 1440px;
+
   left: 0px;
   top: 564px;
+  /* background-image: url(./images/waves.svg); */
+  /* height: 100%; */
+  /* display: inline-block;
+	position: relative;
+	width: 100%;
+	padding-bottom: 100%;
+	vertical-align: middle;
+	overflow: hidden; */
+}
+
+.waves {
+  width: 100%;
+  /* display: inline-block;
+	position: absolute;
+	top: 564px;
+	left: 0; */
 }
