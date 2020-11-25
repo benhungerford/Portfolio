@@ -1,6 +1,7 @@
 body {
   font-family: 'Overpass Mono', monospace;
-  /* background-color:#222831 */
+  max-width: 100vw;
+  background-color:#222831;
 }
 
 #header {
@@ -26,16 +27,20 @@ body {
 }
 
 #intro {
-  display: flex;
+  margin-top: 120px;
+  /* width: 729px;
+  height: 286px; */
+  /* margin-left: 8%; */
+  /* display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
 
-  position: absolute;
-  width: 729px;
-  height: 286px;
-  left: 136px;
-  top: 175px;
+  position: absolute; */
+  /* width: 729px;
+  height: 286px; */
+  /* left: 136px;
+  top: 175px; */
 }
 
 .greeting {
@@ -55,7 +60,7 @@ body {
 }
 
 #waves {
-  position: absolute;
+  /* position: absolute; */
   min-width: 1440px;
 
   left: 0px;
@@ -76,4 +81,35 @@ body {
 	position: absolute;
 	top: 564px;
 	left: 0; */
+}
+
+#about {
+  /* position: absolute; */
+  /* top: 937px; */
+
+  background-color: #EEEEEE;
+}
+
+.about-picture {
+  width: 100%;
+}
+
+#work {
+
+}
+
+.my-work-header {
+  color: #EEEEEE;
+}
+
+.work-picture {
+  width: 80%;
+}
+
+.work-title {
+  color: #EEEEEE;
+}
+
+.work-description {
+  color: #EEEEEE;
 }
