@@ -182,3 +182,15 @@ body {
 .fab {
   color: #222831;
 }
+
+.fab:hover {
+  color: #4F8A8B;
+}
+
+.email-link {
+  color: #4F8A8B;
+}
+
+.email-link:hover {
+  color: #222831;
+}
