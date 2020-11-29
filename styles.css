@@ -53,7 +53,14 @@ body {
 /* Intro Section */
 
 #intro {
-  margin: 100px 50px;
+  height: 50vh;
+  width: 80vw;
+  max-width: 900px;
+  /* margin: auto 50px; */
+}
+
+.intro-body {
+  margin: auto;
 }
 
 .greeting {
