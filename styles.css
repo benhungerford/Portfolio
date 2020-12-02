@@ -150,6 +150,7 @@ section {
 
 .work-picture {
   width: 100%;
+  border-radius: 10px;
 }
 
 .work-title {
@@ -159,6 +160,7 @@ section {
 
 .work-description {
   color: #222831;
+  min-height: 6rem;
 }
 
 .more-button {
