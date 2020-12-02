@@ -5,6 +5,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Sections */
+
+section {
+  padding: 4rem 0;
+}
+
 /* Nav Bar */
 
 #nav {
