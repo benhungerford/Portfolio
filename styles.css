@@ -112,10 +112,14 @@ section {
   background-color: #EEEEEE;
 }
 
+#about > div:nth-child(1) {
+  padding-bottom: 1rem;
+}
+
 .about-picture {
   margin: 15px 0px 0px;
-  padding-bottom: 15px;
   width: 100%;
+  border-radius: 4px;
 }
 
 .about-me {
