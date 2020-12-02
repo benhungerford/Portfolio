@@ -139,6 +139,7 @@ section {
 
 .cards {
   background-color: #FBD46D;
+  border-radius: 4px;
 }
 
 .my-work-header {
