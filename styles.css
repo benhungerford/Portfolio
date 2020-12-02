@@ -5,6 +5,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Sections */
+
+section {
+  padding: 4rem 0;
+}
+
 /* Nav Bar */
 
 #nav {
@@ -106,10 +112,14 @@ body {
   background-color: #EEEEEE;
 }
 
+#about > div:nth-child(1) {
+  padding-bottom: 1rem;
+}
+
 .about-picture {
   margin: 15px 0px 0px;
-  padding-bottom: 15px;
   width: 100%;
+  border-radius: 4px;
 }
 
 .about-me {
@@ -129,6 +139,7 @@ body {
 
 .cards {
   background-color: #FBD46D;
+  border-radius: 4px;
 }
 
 .my-work-header {
@@ -139,6 +150,7 @@ body {
 
 .work-picture {
   width: 100%;
+  border-radius: 10px;
 }
 
 .work-title {
@@ -148,6 +160,7 @@ body {
 
 .work-description {
   color: #222831;
+  min-height: 6rem;
 }
 
 .more-button {
