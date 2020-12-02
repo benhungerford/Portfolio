@@ -53,14 +53,8 @@ body {
 /* Intro Section */
 
 #intro {
-  height: 50vh;
-  width: 80vw;
   max-width: 900px;
-  /* margin: auto 50px; */
-}
-
-.intro-body {
-  margin: auto;
+  margin: 80px 0px 80px 30px;
 }
 
 .greeting {
@@ -81,7 +75,7 @@ body {
 
 @media screen and (max-width: 625px) {
   #intro {
-    margin: 50px 0px 80px;
+    margin: 80px 0px;
   }
 }
 
@@ -91,7 +85,7 @@ body {
     font-weight: bold;
     font-size: 24px;
     color: #EEEEEE;
-    /* margin-left: 5px; */
+
   }
 }
 
@@ -103,21 +97,28 @@ body {
     color: #FBD46D;
     letter-spacing: 5px;
     line-height: 25px;
-    /* margin-left: 5px; */
   }
 }
 
 /* About Section */
 
 #about {
-  /* position: absolute; */
-  /* top: 937px; */
-
   background-color: #EEEEEE;
 }
 
 .about-picture {
+  margin: 15px 0px 0px;
+  padding-bottom: 15px;
   width: 100%;
+}
+
+.about-me {
+  margin: 15px 0px 0px;
+  width: 100%;
+}
+
+.about-me-title {
+  font-weight: bold;
 }
 
 /* Work Section  */
@@ -126,20 +127,83 @@ body {
 
 }
 
+.cards {
+  background-color: #FBD46D;
+}
+
 .my-work-header {
+  font-weight: bold;
   color: #EEEEEE;
+  border-bottom: solid 3px #4F8A8B;
 }
 
 .work-picture {
-  width: 80%;
+  width: 100%;
 }
 
 .work-title {
-  color: #EEEEEE;
+  font-weight: bold;
+  color: #222831;
 }
 
 .work-description {
+  color: #222831;
+}
+
+.more-button {
   color: #EEEEEE;
+  background: #4F8A8B;
+  border-radius: 80px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.more-button:hover {
+  color: #222831;
+  background: #EEEEEE;
+  border-radius: 80px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 /* Contact Section */
+
+#contact {
+  background: #EEEEEE;
+}
+
+.contact-header {
+  font-weight: bold;
+}
+
+.social-link {
+  font-size: 40px;
+}
+
+.fab {
+  color: #222831;
+}
+
+.fab:hover {
+  color: #4F8A8B;
+}
+
+.email-header {
+  font-weight: bold;
+}
+
+.email-font {
+  font-size: 24px;
+}
+
+.email-link {
+  color: #4F8A8B;
+  font-weight: bold;
+}
+
+.email-link:hover {
+  color: #222831;
+}
