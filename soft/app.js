@@ -16,24 +16,12 @@ const btnBase =
 const toggleBase =
   "px-3 py-2 rounded-xl border border-slate-700 bg-slate-800/80 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/70";
 
-/***************************************
- * Local-only date helpers (fix timezone)
- ***************************************/
-function pad(n){ return n < 10 ? '0'+n : ''+n; }
-function isoLocal(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
-function parseISODateLocal(str){ // 'YYYY-MM-DD' -> Date at local midnight
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
-  if (!m) return new Date(NaN);
-  const [, y, mo, da] = m;
-  return new Date(Number(y), Number(mo)-1, Number(da), 0,0,0,0);
-}
-function addDaysLocal(date, n){
-  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  d.setDate(d.getDate() + n);
-  return d;
-}
+/** Utils */
+const fmtLong = (d) =>
+  d.toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric", year: "numeric" });
+const fmtShort = (d) => d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+const iso = (d) => d.toISOString().slice(0, 10);
 
-// Next Monday calculation
 function getNextMonday(base = new Date()) {
   const d = new Date(base.getFullYear(), base.getMonth(), base.getDate());
   const day = d.getDay(); // 0..6
@@ -41,7 +29,7 @@ function getNextMonday(base = new Date()) {
   d.setDate(d.getDate() + delta);
   return d;
 }
-
+function addDays(date, n) { const d = new Date(date); d.setDate(d.getDate() + n); return d; }
 function isThursday(d) { return d.getDay() === 4; }
 function workoutHelp(d) {
   const wd = d.getDay();
@@ -49,52 +37,34 @@ function workoutHelp(d) {
   if (wd === 2 || wd === 4) return "Suggested: Cardio/Recovery";
   return "Optional: Light activity";
 }
-
-// LocalStorage key including config so multiple runs can coexist
 function storageKey(startISO, lengthDays) { return `seventyfive-soft-${startISO}-${lengthDays}`; }
+function makeDayEntry(d) { return { date: iso(d), exercise: false, glutenFree: false, noAlcohol: false, reading: false, waterOz: 0 }; }
 
-// Default day entry structure
-function makeDayEntry(d) {
-  return { date: isoLocal(d), exercise: false, glutenFree: false, noAlcohol: false, reading: false, waterOz: 0 };
-}
-
-/*******************************************
- * Weekend-aware task + streak calculations
- *******************************************/
-function isWeekend(dateOrStr){
-  const d = dateOrStr instanceof Date ? dateOrStr : parseISODateLocal(dateOrStr);
-  const wd = d.getDay();
-  return wd === 0 || wd === 6; // Sun or Sat
-}
-function tasksPerDay(dateStr){ return isWeekend(dateStr) ? 4 : 5; }
-function isPerfectDayFor(dateStr, day){
-  const weekend = isWeekend(dateStr);
-  const baseOk = day.glutenFree && day.noAlcohol && day.reading && day.waterOz >= 100;
-  return weekend ? baseOk : (baseOk && day.exercise);
-}
-function completedTaskCountFor(dateStr, day){
-  const weekend = isWeekend(dateStr);
+function completedTaskCount(day) {
   let c = 0;
-  if (!weekend && day.exercise) c++;
+  if (day.exercise) c++;
   if (day.glutenFree) c++;
   if (day.noAlcohol) c++;
   if (day.reading) c++;
   if (day.waterOz >= 100) c++;
   return c;
 }
+function isPerfectDay(day) { return (day.exercise && day.glutenFree && day.noAlcohol && day.reading && day.waterOz >= 100); }
+
 function computeStreaks(days) {
-  const todayStr = isoLocal(new Date());
+  const todayISO = iso(new Date());
   // Longest
   let longest = 0, run = 0;
   for (let i = 0; i < days.length; i++) {
-    if (isPerfectDayFor(days[i].date, days[i])) { run += 1; if (run > longest) longest = run; }
+    if (isPerfectDay(days[i])) { run += 1; if (run > longest) longest = run; }
     else run = 0;
   }
-  // Current (ending at today or most recent <= today)
-  let current = 0, lastIdx = -1;
-  for (let i = days.length - 1; i >= 0; i--) { if (days[i].date <= todayStr) { lastIdx = i; break; } }
+  // Current (ending at today or the most recent day <= today)
+  let current = 0;
+  let lastIdx = -1;
+  for (let i = days.length - 1; i >= 0; i--) { if (days[i].date <= todayISO) { lastIdx = i; break; } }
   if (lastIdx >= 0) {
-    for (let j = lastIdx; j >= 0; j--) { if (isPerfectDayFor(days[j].date, days[j])) current += 1; else break; }
+    for (let j = lastIdx; j >= 0; j--) { if (isPerfectDay(days[j])) current += 1; else break; }
   }
   return { current, longest };
 }
@@ -167,16 +137,14 @@ function WaterControl({ value, onChange, goal = 100, dayId }) {
 
 /** Day card */
 function DayCard({ day, dateObj, onUpdate, onBulk, isToday }) {
-  const perfectBefore = useRef(isPerfectDayFor(day.date, day));
+  const perfectBefore = useRef(isPerfectDay(day));
   const weekDayHelp = workoutHelp(dateObj);
   const thurs = isThursday(dateObj);
-  const isWknd = isWeekend(dateObj);
   const dayLabel = fmtShort(dateObj);
-  const allComplete = isPerfectDayFor(day.date, day);
+  const allComplete = isPerfectDay(day);
 
-  // Confetti when transitioning to perfect
   useEffect(() => {
-    const nowPerfect = isPerfectDayFor(day.date, day);
+    const nowPerfect = isPerfectDay(day);
     if (!perfectBefore.current && nowPerfect) {
       confetti({ particleCount: 80, spread: 70, origin: { y: 0.2 } });
     }
@@ -208,8 +176,7 @@ function DayCard({ day, dateObj, onUpdate, onBulk, isToday }) {
       ),
 
       React.createElement("div", { className: "mt-4 grid grid-cols-1 gap-2" },
-        // Exercise only on weekdays
-        !isWknd && React.createElement(Toggle, { id: `ex-${day.date}`, label: "Exercise 45 min", help: weekDayHelp, pressed: day.exercise, onToggle: (v) => onUpdate({ ...day, exercise: v }) }),
+        React.createElement(Toggle, { id: `ex-${day.date}`, label: "Exercise 45 min", help: weekDayHelp, pressed: day.exercise, onToggle: (v) => onUpdate({ ...day, exercise: v }) }),
         React.createElement(Toggle, {
           id: `gl-${day.date}`,
           label: `Gluten rule met${thurs ? " (bagel allowed)" : ""}`,
@@ -231,10 +198,10 @@ function DayCard({ day, dateObj, onUpdate, onBulk, isToday }) {
 
 /** Progress summary + legend */
 function ProgressSummary({ days }) {
-  const totalTasks = days.reduce((acc, d) => acc + tasksPerDay(d.date), 0);
-  const doneTasks  = days.reduce((acc, d) => acc + completedTaskCountFor(d.date, d), 0);
+  const totalTasks = days.length * 5;
+  const doneTasks = days.reduce((acc, d) => acc + completedTaskCount(d), 0);
   const pct = totalTasks ? Math.round((doneTasks / totalTasks) * 100) : 0;
-  const perfectDays = days.filter((d) => isPerfectDayFor(d.date, d)).length;
+  const perfectDays = days.filter(isPerfectDay).length;
   const { current, longest } = computeStreaks(days);
 
   return (
@@ -304,12 +271,9 @@ function PlanSettings({ isOpen, onClose, config, onSave, onReset, soundEnabled, 
   useEffect(() => { if (isOpen) { setStartStr(config.startISO); setLen(config.lengthDays); } }, [isOpen, config.startISO, config.lengthDays]);
 
   function handleSave() {
-    // Accept the literal yyyy-mm-dd string to avoid timezone drift
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(startStr) || isNaN(parseISODateLocal(startStr))) {
-      alert("Please enter a valid start date (YYYY-MM-DD).");
-      return;
-    }
-    onSave({ startISO: startStr, lengthDays: Math.max(1, Number(len) || 75) });
+    const d = new Date(startStr);
+    if (isNaN(d)) return alert("Please enter a valid start date.");
+    onSave({ startISO: iso(d), lengthDays: Math.max(1, Number(len) || 75) });
   }
 
   function handleFileSelect(e) {
@@ -380,7 +344,7 @@ function HelpModal({ isOpen, onClose }) {
       },
         React.createElement("h2", { className: "text-lg font-semibold" }, "Help & Shortcuts"),
         React.createElement("div", { className: "mt-3 text-sm text-slate-300 space-y-2" },
-          React.createElement("p", null, React.createElement("strong", null, "Goals:"), " Exercise 45 min (weekdays), Gluten rule (Thu bagel allowed), No alcohol, 100 oz water, Read 10 pages."),
+          React.createElement("p", null, React.createElement("strong", null, "Goals:"), " Exercise 45 min, Gluten rule (Thu bagel allowed), No alcohol, 100 oz water, Read 10 pages."),
           React.createElement("ul", { className: "list-disc pl-5 space-y-1" },
             React.createElement("li", null, React.createElement("strong", null, "T"), " → Scroll/focus to today"),
             React.createElement("li", null, React.createElement("strong", null, "C"), " → Quick-complete today (confirm)"),
@@ -418,7 +382,7 @@ function Filters({ filter, setFilter }) {
 function App() {
   // Config
   const defaultStart = useMemo(() => getNextMonday(), []);
-  const [config, setConfig] = useState(() => ({ startISO: isoLocal(defaultStart), lengthDays: 75 }));
+  const [config, setConfig] = useState(() => ({ startISO: iso(defaultStart), lengthDays: 75 }));
 
   // Sound pref (muted by default)
   const [soundEnabled, setSoundEnabled] = useState(() => {
@@ -430,8 +394,8 @@ function App() {
   }, [soundEnabled]);
 
   // Dates
-  const startDate = useMemo(() => parseISODateLocal(config.startISO), [config.startISO]);
-  const endDate = useMemo(() => addDaysLocal(startDate, config.lengthDays - 1), [startDate, config.lengthDays]);
+  const startDate = useMemo(() => new Date(config.startISO), [config.startISO]);
+  const endDate = useMemo(() => addDays(startDate, config.lengthDays - 1), [startDate, config.lengthDays]);
 
   // Storage key
   const lsKey = useMemo(() => storageKey(config.startISO, config.lengthDays), [config.startISO, config.lengthDays]);
@@ -440,13 +404,13 @@ function App() {
   const [days, setDays] = useState(() => {
     const cached = localStorage.getItem(lsKey);
     if (cached) { try { return JSON.parse(cached); } catch {} }
-    return Array.from({ length: config.lengthDays }, (_, i) => makeDayEntry(addDaysLocal(startDate, i)));
+    return Array.from({ length: config.lengthDays }, (_, i) => makeDayEntry(addDays(startDate, i)));
   });
 
   useEffect(() => {
     const cached = localStorage.getItem(lsKey);
     if (cached) { try { setDays(JSON.parse(cached)); return; } catch {} }
-    setDays(Array.from({ length: config.lengthDays }, (_, i) => makeDayEntry(addDaysLocal(startDate, i))));
+    setDays(Array.from({ length: config.lengthDays }, (_, i) => makeDayEntry(addDays(startDate, i))));
   }, [lsKey, config.lengthDays, startDate]);
 
   useEffect(() => { localStorage.setItem(lsKey, JSON.stringify(days)); }, [lsKey, days]);
@@ -458,7 +422,7 @@ function App() {
   // Refs & today
   const todayRef = useRef(null);
   const mobileViewerRef = useRef(null);
-  const todayISO = isoLocal(new Date());
+  const todayISO = iso(new Date());
 
   // Mobile single-card viewer selection
   const [mobileDateISO, setMobileDateISO] = useState(() => todayISO);
@@ -480,17 +444,9 @@ function App() {
     const idx = days.findIndex((d) => d.date === todayISO);
     if (idx === -1) return alert("Today is outside the current plan window.");
     if (!confirm("Quick-complete all tasks today?")) return;
-    const weekend = isWeekend(todayISO);
     setDays((prev) => {
       const copy = [...prev];
-      copy[idx] = {
-        ...copy[idx],
-        exercise: weekend ? copy[idx].exercise : true,
-        glutenFree: true,
-        noAlcohol: true,
-        reading: true,
-        waterOz: 100
-      };
+      copy[idx] = { ...copy[idx], exercise: true, glutenFree: true, noAlcohol: true, reading: true, waterOz: 100 };
       return copy;
     });
   }
@@ -511,17 +467,17 @@ function App() {
   const [filter, setFilter] = useState("all");
   const filteredDays = useMemo(() => {
     const today = new Date();
-    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    startOfWeek.setDate(today.getDate() - ((today.getDay() + 6) % 7)); // Monday start
-    const endOfWeek = addDaysLocal(startOfWeek, 6);
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - ((today.getDay() + 6) % 7)); // week starts Monday
+    const endOfWeek = addDays(startOfWeek, 6);
 
     return days.filter((d) => {
       if (filter === "all") return true;
-      const perfect = isPerfectDayFor(d.date, d);
+      const perfect = isPerfectDay(d);
       if (filter === "complete") return perfect;
       if (filter === "incomplete") return !perfect;
       if (filter === "week") {
-        const dd = parseISODateLocal(d.date);
+        const dd = new Date(d.date);
         return dd >= startOfWeek && dd <= endOfWeek;
       }
       return true;
@@ -531,21 +487,13 @@ function App() {
   // Update helpers
   function updateDay(dateISO, updater) { setDays((prev) => prev.map((d) => (d.date === dateISO ? updater(d) : d))); }
   function bulkDay(dateISO, complete) {
-    const weekend = isWeekend(dateISO);
-    updateDay(dateISO, (d) => ({
-      ...d,
-      exercise: weekend ? d.exercise : complete,
-      glutenFree: complete,
-      noAlcohol: complete,
-      reading: complete,
-      waterOz: complete ? 100 : 0
-    }));
+    updateDay(dateISO, (d) => ({ ...d, exercise: complete, glutenFree: complete, noAlcohol: complete, reading: complete, waterOz: complete ? 100 : 0 }));
   }
 
-  // Track newly perfect (chime omitted due to CSP)
+  // Chime on newly perfect (omitted here to avoid WebAudio CSP issues)
   const lastPerfectSetRef = useRef(new Set([]));
   useEffect(() => {
-    const nowPerfect = new Set(days.filter((d) => isPerfectDayFor(d.date, d)).map((d) => d.date));
+    const nowPerfect = new Set(days.filter(isPerfectDay).map((d) => d.date));
     lastPerfectSetRef.current = nowPerfect;
   }, [days]);
 
@@ -567,7 +515,7 @@ function App() {
   }
   function handleReset() {
     if (!confirm("Reset all progress for this plan?")) return;
-    setDays(Array.from({ length: config.lengthDays }, (_, i) => makeDayEntry(addDaysLocal(startDate, i))));
+    setDays(Array.from({ length: config.lengthDays }, (_, i) => makeDayEntry(addDays(startDate, i))));
   }
   function handleSaveSettings(next) { setConfig(next); setShowSettings(false); }
 
@@ -607,7 +555,7 @@ function App() {
                 className: "rounded-lg bg-slate-900 border border-slate-700 px-2 py-1 text-sm",
                 "aria-label": "Select day", value: mobileDateISO, onChange: (e) => setMobileDateISO(e.target.value)
               },
-                days.map((d) => React.createElement("option", { key: d.date, value: d.date }, fmtShort(parseISODateLocal(d.date))))
+                days.map((d) => React.createElement("option", { key: d.date, value: d.date }, fmtShort(new Date(d.date))))
               )
             ),
             React.createElement("div", { className: "flex items-center gap-2" },
@@ -617,7 +565,7 @@ function App() {
             )
           ),
           mobileDay && React.createElement(DayCard, {
-            day: mobileDay, dateObj: parseISODateLocal(mobileDay.date),
+            day: mobileDay, dateObj: new Date(mobileDay.date),
             isToday: mobileDay.date === todayISO,
             onUpdate: (next) => updateDay(mobileDay.date, () => next),
             onBulk: (complete) => bulkDay(mobileDay.date, complete)
@@ -631,7 +579,7 @@ function App() {
         /* Desktop / tablet grid */
         React.createElement("div", { className: "hidden sm:grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" },
           filteredDays.map((d) => {
-            const dateObj = parseISODateLocal(d.date);
+            const dateObj = new Date(d.date);
             const isTodayCard = d.date === todayISO;
             return React.createElement("div", { key: d.date, ref: isTodayCard ? todayRef : null },
               React.createElement(DayCard, {
