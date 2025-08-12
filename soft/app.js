@@ -1,7 +1,7 @@
 // /soft/app.js
-import React, { useEffect, useMemo, useRef, useState } from 'https://esm.sh/react@18';
-import { createRoot } from 'https://esm.sh/react-dom@18/client';
-import { motion, AnimatePresence } from 'https://esm.sh/framer-motion@11';
+import React, { useEffect, useMemo, useRef, useState } from 'https://esm.sh/react@18.3.1';
+import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client?deps=react@18.3.1';
+import { motion, AnimatePresence } from 'https://esm.sh/framer-motion@11.3.30?external=react,react-dom';
 import confetti from 'https://esm.sh/canvas-confetti@1';
 
 /** Tailwind class helpers (dark teal theme) */
