@@ -1,7 +1,9 @@
 // /soft/app.js
+// Use a single React/ReactDOM, and let framer-motion build against them.
+// IMPORTANT: do NOT use ?external for framer-motion; use ?deps=... instead.
 import React, { useEffect, useMemo, useRef, useState } from 'https://esm.sh/react@18.3.1';
 import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client?deps=react@18.3.1';
-import { motion, AnimatePresence } from 'https://esm.sh/framer-motion@11.3.30?external=react,react-dom';
+import { motion, AnimatePresence } from 'https://esm.sh/framer-motion@11.3.30?deps=react@18.3.1';
 import confetti from 'https://esm.sh/canvas-confetti@1';
 
 /** Tailwind class helpers (dark teal theme) */
