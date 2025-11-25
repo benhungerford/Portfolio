@@ -1,123 +1,277 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>Ben Hungerford — Web Developer</title>
+    <meta name="description"
+        content="Web developer based in Greenville, SC, building for values-driven brands and teams.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    <link rel="icon"
-      type="image/png"
-      href="./images/wave.png">
-    <!-- HTML Meta Tags -->
-    <title>Ben Hungerford's Portfolio</title>
-    <meta name="description" content="Web Developer from Greenville, SC">
+    <link rel="icon" type="image/png" href="./images/wave.png">
+</head>
 
-    <!-- Google / Search Engine Tags -->
-    <meta itemprop="name" content="Ben Hungerford's Portfolio">
-    <meta itemprop="description" content="Web Developer from Greenville, SC">
-    <meta itemprop="image" content="https://benhungerford.dev/images/family.jpg">
+<body>
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
 
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://benhungerford.dev">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Ben Hungerford's Portfolio">
-    <meta property="og:description" content="Web Developer from Greenville, SC">
-    <meta property="og:image" content="https://benhungerford.dev/images/family.jpg">
+            <!-- Navigation -->
+            <nav class="nav-container">
+                <div class="nav-left">
+                    <a href="#" class="logo">BEN HUNGERFORD</a>
+                </div>
+                <div class="nav-right">
+                    <a href="#work">Work</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
 
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ben Hungerford's Portfolio">
-    <meta name="twitter:description" content="Web Developer from Greenville, SC">
-    <meta name="twitter:image" content="https://benhungerford.dev/images/family.jpg">
+            <main>
+                <!-- Hero Section -->
+                <section id="hero" class="section hero-section">
+                    <div class="container hero-grid">
+                        <div class="hero-left">
+                            <p class="hero-greeting mono">Hey, I'm Ben</p>
+                            <h1 class="hero-headline">I craft clean, thoughtful websites that reflect who you are and
+                                what you
+                                care about.</h1>
+                            <ul class="meta-list mono">
+                                <li>expertise: wordpress, shopify, SEO, and ai workflows</li>
+                                <li>availability: new projects, ongoing maintenance, and WordPress hosting</li>
+                            </ul>
+                            <div class="hero-actions">
+                                <a href="#contact" class="btn btn-primary">Start a conversation</a>
+                                <a href="#work" class="btn btn-outline">See recent work</a>
+                            </div>
+                        </div>
+                        <div class="hero-right">
+                            <img src="./images/avatar.jpg" alt="Ben Hungerford" class="avatar-circle">
+                            <p class="hero-bio mono">Web developer based in Greenville, SC, building for values‑driven
+                                brands
+                                and teams.</p>
+                        </div>
+                    </div>
+                </section>
 
-    <!-- Meta Tags Generated via http://heymeta.com -->
-  </head>
-  <body class="container-fluid">
-<!-- Nav Bar -->
-    <nav id="nav" role='navigation' class="row justify-content-between">
-        <span class="home-button">
-          <img src="images/Ben_Circle.png" alt="Home" class="home-picture">
-        </span>
-        <!-- <span class="nav-items">
-          <button class="nav-button" type="button" name="About">About</button>
-          <button class="nav-button" type="button" name="Work">Work</button>
-          <button class="nav-button" type="button" name="Contact">Contact</button>
-        </span> -->
-    </nav>
-<!-- Intro Section -->
-    <section id="intro" class="row">
-      <div class="col-12 intro-body">
-        <h1 class="greeting">Hi! I'm Ben.</h1>
-        <h1 class="greeting">Nice to meet you.</h1>
-        <h3 class="subtitle">Web Developer</h3>
-        <h3 class="subtitle">Greenville, SC</h3>
-      </div>
-    </section>
-<!-- About Section -->
-    <section id="about" class="row align-items-center">
-      <div class="col-12 col-md-6">
-        <img src="./images/family.jpg" alt="Family" class="align-self-center about-picture">
-      </div>
-      <div class="col-12 col-md-6 align-self-center about-me">
-        <h1 class="about-me-title">About Me</h1>
-        <p>I am a proud Greenville resident along with my beautiful wife and daughter. As a creative problem solver, 2020 gave me the opportunity to start a new path in Web Development and I'm excited to use my skills to help make other people's lives better.<br><br>
+                <!-- Selected Work Section -->
+                <section id="work" class="section work-section">
+                    <div class="container">
+                        <h2 class="section-label mono">Selected Work</h2>
 
-        I'd love to have a conversation. Please <a class="email-link" target="_blank" href="mailto:bmhungerford@gmail.com?subject=Let's talk!">reach out</a> and let me know where you'd like to get a drink!</p>
-      </div>
-    </section>
-<!-- Work Section -->
-    <section id="work" class="row justify-content-around mt-5">
-      <div class="col-12 row justify-content-center mb-5">
-        <div class="header-div">
-          <h1 class="my-work-header">My Work</h1>
+                        <div class="project-list">
+                            <!-- Project 1 -->
+                            <article class="project-item">
+                                <div class="project-visual">
+                                    <img src="./images/hincapie.jpg" alt="Hincapie Project">
+                                </div>
+                                <div class="project-details">
+                                    <h3 class="project-title">Hincapie</h3>
+                                    <p class="project-desc">High-performance cycling apparel and events.</p>
+                                    <p class="project-meta mono">built with Shopify</p>
+                                    <a href="https://hincapie.com" class="project-link" target="_blank"
+                                        rel="noopener noreferrer">View site &rarr;</a>
+                                </div>
+                            </article>
+
+                            <!-- Project 2 -->
+                            <article class="project-item">
+                                <div class="project-visual">
+                                    <img src="./images/enpulsion.jpg" alt="ENPULSION Project">
+                                </div>
+                                <div class="project-details">
+                                    <h3 class="project-title">ENPULSION</h3>
+                                    <p class="project-desc">Advanced propulsion systems for space satellites.</p>
+                                    <p class="project-meta mono">built with WordPress</p>
+                                    <a href="https://www.enpulsion.com" class="project-link" target="_blank"
+                                        rel="noopener noreferrer">View site &rarr;</a>
+                                </div>
+                            </article>
+
+                            <!-- Project 3 -->
+                            <article class="project-item">
+                                <div class="project-visual">
+                                    <img src="./images/bubl-shots.jpg" alt="Bubl Shots Project">
+                                </div>
+                                <div class="project-details">
+                                    <h3 class="project-title">Bubl Shots</h3>
+                                    <p class="project-desc">Innovative beverage packaging solutions.</p>
+                                    <p class="project-meta mono">built with Shopify</p>
+                                    <a href="https://bublshots.com" class="project-link" target="_blank"
+                                        rel="noopener noreferrer">View site &rarr;</a>
+                                </div>
+                            </article>
+
+                            <!-- Project 4 -->
+                            <article class="project-item">
+                                <div class="project-visual">
+                                    <img src="./images/tiptop.jpg" alt="Tiptop Search & Marketing Project">
+                                </div>
+                                <div class="project-details">
+                                    <h3 class="project-title">Tiptop Search &amp; Marketing</h3>
+                                    <p class="project-desc">Digital marketing agency for growing brands.</p>
+                                    <p class="project-meta mono">built with WordPress</p>
+                                    <a href="https://tiptopsm.com" class="project-link" target="_blank"
+                                        rel="noopener noreferrer">View site &rarr;</a>
+                                </div>
+                            </article>
+
+                            <!-- Project 5 -->
+                            <article class="project-item">
+                                <div class="project-visual">
+                                    <img src="./images/itrust.jpg" alt="iTrust Wellness Project">
+                                </div>
+                                <div class="project-details">
+                                    <h3 class="project-title">iTrust Wellness</h3>
+                                    <p class="project-desc">Mental health and wellness services.</p>
+                                    <p class="project-meta mono">built with WordPress</p>
+                                    <a href="https://itrustwellnessgroup.com" class="project-link" target="_blank"
+                                        rel="noopener noreferrer">View site &rarr;</a>
+                                </div>
+                            </article>
+
+                            <!-- Project 6 -->
+                            <article class="project-item">
+                                <div class="project-visual">
+                                    <img src="./images/ncfm.jpg" alt="North Central Family Medicine Project">
+                                </div>
+                                <div class="project-details">
+                                    <h3 class="project-title">North Central Family Medicine</h3>
+                                    <p class="project-desc">Community-focused healthcare provider.</p>
+                                    <p class="project-meta mono">built with WordPress</p>
+                                    <a href="https://northcentralmed.com" class="project-link" target="_blank"
+                                        rel="noopener noreferrer">View site &rarr;</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section id="about" class="section about-section">
+                    <div class="container">
+                        <h2 class="section-label mono">About</h2>
+                        <div class="about-intro">
+                            <p>My journey into development started at Carolina Code School, where I began to tap into
+                                the
+                                superpower of code and creativity. Since then, I've honed my craft as a web developer at
+                                The
+                                Brand Leader, working on projects that range from custom WordPress builds to organized
+                                and
+                                engaging Shopify stores.</p>
+                            <p>I believe that a website is more than just code—it's the digital home for your brand's
+                                values. My
+                                background in creative arts and production has taught me that every detail matters, and
+                                I bring
+                                that same level of care to every line of code I write.</p>
+                        </div>
+                        <div class="about-grid">
+                            <!-- <div class="about-col">
+                        <h3 class="about-label mono">How I like to work</h3>
+                        <ul class="about-list">
+                            <li>Collaborative & iterative</li>
+                            <li>Clean code, clean design</li>
+                            <li>Focus on performance</li>
+                            <li>Accessibility first</li>
+                        </ul>
+                    </div> -->
+                            <div class="about-col">
+                                <h3 class="section-subtitle mono">Current EDC</h3>
+                                <ul class="about-list">
+                                    <li>Macbook Pro & iPad Pro</li>
+                                    <li>Google Pixel 8 Pro</li>
+                                    <li>CMF Watch Pro 2</li>
+                                    <li>Fujifilm X-S10</li>
+                                    <li>Google Pixel Buds Pro</li>
+                                    <li>Brevite Jumper Backpack</li>
+                                </ul>
+                            </div>
+                            <div class="about-col">
+                                <h3 class="section-subtitle mono">Favorite Books</h3>
+                                <ul class="about-list">
+                                    <li>Start With Why</li>
+                                    <li>The Ruthless Elimination of Hurry</li>
+                                    <li>Harry Potter</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ways We Can Work Together -->
+                <section id="services" class="section services-section">
+                    <div class="container">
+                        <h2 class="section-label mono">Ways We Can Work Together</h2>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <h3 class="section-subtitle mono">New builds</h3>
+                                <ul class="service-list">
+                                    <li>Custom WordPress Development</li>
+                                    <li>Shopify Theme Customization</li>
+                                    <li>Web Applications</li>
+                                    <li>SEO-Friendly Architecture</li>
+                                </ul>
+                            </div>
+                            <div class="service-item">
+                                <h3 class="section-subtitle mono">Refinements</h3>
+                                <ul class="service-list">
+                                    <li>Performance Audits</li>
+                                    <li>SEO Improvements</li>
+                                    <li>Accessibility Fixes</li>
+                                    <li>Feature Additions</li>
+                                </ul>
+                            </div>
+                            <div class="service-item">
+                                <h3 class="section-subtitle mono">Ongoing partnership</h3>
+                                <ul class="service-list">
+                                    <li>Monthly Maintenance</li>
+                                    <li>Content Updates</li>
+                                    <li>Security Monitoring</li>
+                                    <li>Long-term Growth Strategy</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact" class="section contact-section">
+                    <div class="container">
+                        <div class="contact-content">
+                            <h2 class="contact-headline">Let's collaborate on something amazing.</h2>
+                            <p class="contact-subtext">I'm open to discussing new projects, creative ideas, or
+                                opportunities to
+                                incorporate your visions.</p>
+                            <a href="mailto:bmhungerford@gmail.com" class="btn btn-primary btn-large">Let's Talk</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container footer-flex">
+                        <p class="copyright mono">&copy; <span id="current-year"></span> Ben Hungerford</p>
+                        <p class="location mono">Built with HTML, CSS, & Vanilla JS</p>
+                    </div>
+                </footer>
+
         </div>
-      </div>
-      <div class="col-12 col-md-3 mb-3 cards">
-        <h3 class="mt-3 work-title">Table</h3>
-        <p class="work-description">A web app that allows a party host to organize what their friends bring over for a meal.</p>
-        <img src="./images/table.jpg" alt="Table App" class="work-picture">
-        <div class="row justify-content-center mt-3 mb-3">
-          <a href="https://ccs-final-project-table.herokuapp.com/" target="_blank" rel="noopener noreferrer" class="more-button">Table Web App</a>
-        </div>
-      </div>
-      <div class="col-12 col-md-3 mb-3 cards">
-        <h3 class="mt-3 work-title">Pixel Perfect</h3>
-        <p class="work-description">A mockup recreation using HTML and CSS.</p>
-        <img src="./images/pixel_perfect.jpg" alt="Pixel Perfect" class="work-picture">
-        <div class="row justify-content-center mt-3 mb-3">
-          <a href="https://benhungerford.github.io/pixel-perfect/" target="_blank" rel="noopener noreferrer" class="more-button">Pixel Perfect Design</a>
-        </div>
-      </div>
-      <div class="col-12 col-md-3 mb-3 cards">
-        <h3 class="mt-3 work-title">News App</h3>
-        <p class="work-description">A full stack app for publishing news articles.</p>
-        <img src="./images/newsapp.jpg" alt="News App" class="work-picture">
-        <div class="row justify-content-center align-items-end mt-3 mb-3">
-          <a href="https://serene-beach-86186.herokuapp.com/" target="_blank" rel="noopener noreferrer" class="more-button">News Web App</a>
-        </div>
-      </div>
-    </section>
-<!-- Contact Section -->
-    <section id="contact" class="row justify-content-center mt-5 mb-5">
-      <h1 class="mt-5 mb-5 contact-header">Contact</h1>
-      <div class="col-12 text-center">
-        <h3 class="email-header">Email</h3>
-        <p><a class="email-link email-font" href="mailto:bmhungerford@gmail.com?subject=Let's talk!">bmhungerford@gmail.com</a></p>
-      </div>
-      <div class="m-5">
-        <a href="https://github.com/benhungerford" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a>
-      </div>
-      <div class="m-5">
-        <a href="https://www.linkedin.com/in/ben-hungerford/" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-linkedin"></i></a>
-      </div>
-    </section>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    <script src="main.js" charset="utf-8"></script>
-  </body>
+    <!-- GSAP and ScrollSmoother (local) -->
+    <script src="./node_modules/gsap/dist/gsap.min.js"></script>
+    <script src="./node_modules/gsap/dist/ScrollTrigger.min.js"></script>
+    <script src="./node_modules/gsap/dist/ScrollSmoother.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
 </html>
