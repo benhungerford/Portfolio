@@ -18,23 +18,88 @@
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="./images/wave.png">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://benhungerford.dev/#person",
+          "name": "Ben Hungerford",
+          "url": "https://benhungerford.dev",
+          "image": "https://benhungerford.dev/images/avatar.jpg",
+          "jobTitle": "Web Developer",
+          "description": "Web developer based in Greenville, SC, building for values-driven brands and teams.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Greenville",
+            "addressRegion": "SC",
+            "addressCountry": "US"
+          },
+          "email": "bmhungerford@gmail.com",
+          "sameAs": [
+            "https://www.linkedin.com/in/ben-hungerford/"
+          ],
+          "knowsAbout": ["WordPress", "Shopify", "SEO", "Web Development", "Front-end Development"],
+          "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Build Carolina Academy",
+            "url": "https://www.buildcarolina.org/"
+          },
+          "worksFor": {
+            "@type": "Organization",
+            "name": "The Brand Leader"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://benhungerford.dev/#website",
+          "url": "https://benhungerford.dev",
+          "name": "Ben Hungerford - Web Developer",
+          "description": "Portfolio of Ben Hungerford, a web developer specializing in WordPress, Shopify, and custom web applications.",
+          "publisher": {
+            "@id": "https://benhungerford.dev/#person"
+          },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://benhungerford.dev/#service",
+          "name": "Ben Hungerford Web Development",
+          "description": "Professional web development services including WordPress, Shopify, SEO, and custom web applications.",
+          "provider": {
+            "@id": "https://benhungerford.dev/#person"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "United States"
+          },
+          "serviceType": ["Web Development", "WordPress Development", "Shopify Development", "SEO Services", "Website Maintenance"],
+          "url": "https://benhungerford.dev"
+        }
+      ]
+    }
+    </script>
+
 </head>
 
 <body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-left">
+            <a href="#" class="logo">BEN HUNGERFORD</a>
+        </div>
+        <div class="nav-right">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
     <div id="smooth-wrapper">
         <div id="smooth-content">
-
-            <!-- Navigation -->
-            <nav class="nav-container">
-                <div class="nav-left">
-                    <a href="#" class="logo">BEN HUNGERFORD</a>
-                </div>
-                <div class="nav-right">
-                    <a href="#work">Work</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-                </div>
-            </nav>
 
             <main>
                 <!-- Hero Section -->
@@ -161,7 +226,8 @@
                     <div class="container">
                         <h2 class="section-label mono">About</h2>
                         <div class="about-intro">
-                            <p>My journey into development started at Carolina Code School, where I began to tap into
+                            <p>My journey into development started at Build Carolina Academy (Carolina Code School),
+                                where I began to tap into
                                 the
                                 superpower of code and creativity. Since then, I've honed my craft as a web developer at
                                 The
@@ -260,6 +326,8 @@
                 <footer class="footer">
                     <div class="container footer-flex">
                         <p class="copyright mono">&copy; <span id="current-year"></span> Ben Hungerford</p>
+                        <a href="https://www.linkedin.com/in/ben-hungerford/" target="_blank" rel="noopener noreferrer"
+                            class="location mono">LinkedIn</a>
                         <p class="location mono">Built with HTML, CSS, & Vanilla JS</p>
                     </div>
                 </footer>
