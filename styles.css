@@ -165,10 +165,17 @@ img {
 
 .logo {
   font-family: var(--font-main);
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 400;
+  font-size: 30px;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  border-bottom: none;
+  color: var(--text-primary);
+}
+
+.logo-mark {
+  display: block;
+  width: 110px;
+  height: auto;
 }
 
 .nav-right {
@@ -230,7 +237,7 @@ nav.nav-container a {
 
 /* Hero Section */
 .hero-section {
-  padding: var(--spacing-xxl) 0;
+  padding: calc(var(--nav-height) + var(--spacing-md)) 0 var(--spacing-xxl) 0;
   min-height: 90vh;
   display: flex;
   align-items: center;
@@ -584,6 +591,9 @@ nav.nav-container a {
     align-items: center;
     flex-wrap: wrap;
     justify-content: flex-end;
+  }
+  .nav-right a {
+    display: none;
   }
 
   /* Mobile Footer */
