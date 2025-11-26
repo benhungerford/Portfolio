@@ -1,12 +1,31 @@
-// Smooth Scroll for navigation links only
+// Smooth scroll for navigation links with sticky nav offset
+const nav = document.querySelector('.nav-container');
+const getSmoother = () => (typeof ScrollSmoother !== "undefined" ? ScrollSmoother.get() : null);
+
+function getNavHeight() {
+    return nav ? nav.offsetHeight : 0;
+}
+
+function scrollToAnchor(targetEl) {
+    const offset = getNavHeight();
+    const targetY = Math.max(targetEl.getBoundingClientRect().top + window.pageYOffset - offset, 0);
+    const smoother = getSmoother();
+    if (smoother) {
+        smoother.scrollTo(targetY, true);
+    } else {
+        window.scrollTo({
+            top: targetY,
+            behavior: 'smooth'
+        });
+    }
+}
+
 document.querySelectorAll('.nav-right a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth'
-            });
+            scrollToAnchor(target);
         }
     });
 });

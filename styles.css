@@ -80,6 +80,10 @@ button:focus-visible,
   outline-offset: 3px;
 }
 
+a:not(.btn) {
+  border-bottom: 1px solid var(--text-primary);
+}
+
 ul {
   list-style: none;
 }
@@ -144,15 +148,15 @@ img {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-md) var(--container-padding);
-  position: fixed;;
+  position: fixed;
   width: 100%;
   height: var(--nav-height);
   top: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px) saturate(120%);
   z-index: 100;
-  border-bottom: 1px solid transparent;
-  /* Keep minimal */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.08), 0 0px 0 rgba(0, 0, 0, 0.04);
 }
 
 .logo {
