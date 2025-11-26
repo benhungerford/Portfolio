@@ -156,7 +156,7 @@ img {
   backdrop-filter: blur(10px) saturate(120%);
   z-index: 100;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.08), 0 0px 0 rgba(0, 0, 0, 0.04);
+  /* box-shadow: 0 0px 8px rgba(0, 0, 0, 0.08), 0 0px 0 rgba(0, 0, 0, 0.04); */
 }
 
 .logo {
