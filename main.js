@@ -10,8 +10,12 @@ document.querySelectorAll('.nav-right a[href^="#"]').forEach(anchor => {
         }
     });
 });
-// GSAP ScrollSmoother init
-if (typeof ScrollSmoother !== "undefined") {
+
+// Respect motion preferences and mobile constraints for ScrollSmoother
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isTouchScreen = window.innerWidth < 768;
+
+if (!prefersReducedMotion && !isTouchScreen && typeof ScrollSmoother !== "undefined") {
     ScrollSmoother.create({
         wrapper: "#smooth-wrapper",
         content: "#smooth-content",
@@ -26,45 +30,12 @@ if (document.getElementById('current-year')) {
     document.getElementById('current-year').textContent = new Date().getFullYear();
 }
 
-// Hamburger menu toggle
-const hamburger = document.querySelector('.hamburger');
-const navRight = document.querySelector('.nav-right');
-const menuOverlay = document.querySelector('.menu-overlay');
-
-if (hamburger && navRight && menuOverlay) {
-    // Toggle menu function
-    function toggleMenu() {
-        hamburger.classList.toggle('active');
-        navRight.classList.toggle('active');
-        menuOverlay.classList.toggle('active');
-
-        // Prevent body scroll when menu is open
-        if (navRight.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+// Image fade-in when loaded
+const fadeImages = document.querySelectorAll('.fade-image');
+fadeImages.forEach((img) => {
+    if (img.complete) {
+        img.classList.add('is-loaded');
+        return;
     }
-
-    // Close menu function
-    function closeMenu() {
-        hamburger.classList.remove('active');
-        navRight.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // Hamburger click
-    hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMenu();
-    });
-
-    // Overlay click
-    menuOverlay.addEventListener('click', closeMenu);
-
-    // Close menu when clicking a nav link
-    navRight.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
-}
+    img.addEventListener('load', () => img.classList.add('is-loaded'));
+});
