@@ -20,15 +20,22 @@ function scrollToAnchor(targetEl) {
     }
 }
 
-document.querySelectorAll('.nav-right a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            scrollToAnchor(target);
-        }
+function bindInternalAnchors() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#' || anchor.classList.contains('skip-link')) return;
+
+        anchor.addEventListener('click', (e) => {
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                scrollToAnchor(target);
+            }
+        });
     });
-});
+}
+
+bindInternalAnchors();
 
 // Respect motion preferences and mobile constraints for ScrollSmoother
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');

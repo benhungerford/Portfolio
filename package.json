@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "gsap": "^3.13.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.33.0"
   }
 }
