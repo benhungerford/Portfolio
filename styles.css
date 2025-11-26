@@ -73,6 +73,13 @@ a:hover {
   opacity: 0.6;
 }
 
+a:focus-visible,
+button:focus-visible,
+.nav-right a:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
+}
+
 ul {
   list-style: none;
 }
@@ -93,10 +100,22 @@ img {
   transform: none;
 }
 
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--text-primary);
-  outline-offset: 3px;
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  background: var(--bg-color);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--text-primary);
+  border-radius: 999px;
+  z-index: 1000;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(10px);
 }
 
 /* Typography Utility */
@@ -332,7 +351,7 @@ button:focus-visible {
 }
 
 .project-meta {
-  color: #888;
+  color: #3d3d3d;
   margin-bottom: var(--spacing-md);
   font-size: 0.8rem;
 }
@@ -455,7 +474,7 @@ button:focus-visible {
 
 .contact-hint {
   margin-top: var(--spacing-md);
-  color: #999;
+  color: #3d3d3d;
   font-size: 0.8rem;
 }
 
