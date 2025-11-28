@@ -20,5 +20,5 @@ Greenville, SC web developer crafting clean, performance-first sites for values-
 
 ## Quick checks with Playwright
 - Dev dependency: `playwright@1.33.0` (Node 16 compatible).
-- Example: capture a live screenshot `npx playwright screenshot --wait-for-timeout 3000 --full-page https://benhungerford.dev shot.png`.
+- Example: capture a live screenshot `npx playwright screenshot --wait-for-timeout 3000 --full-page https://benhungerford.com shot.png`.
 - To exercise anchors/buttons locally: run a small script against `file://.../index.html` to verify CTAs scroll to `#work` and `#contact`.
