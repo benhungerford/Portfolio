@@ -1,3 +1,13 @@
+// Register GSAP plugins when available
+if (typeof gsap !== "undefined") {
+    if (typeof ScrollTrigger !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
+    }
+    if (typeof ScrollSmoother !== "undefined") {
+        gsap.registerPlugin(ScrollSmoother);
+    }
+}
+
 // Smooth scroll for navigation links with sticky nav offset
 const nav = document.querySelector('.nav-container');
 const getSmoother = () => (typeof ScrollSmoother !== "undefined" ? ScrollSmoother.get() : null);
@@ -57,6 +67,65 @@ function initSmoother() {
 
 initSmoother();
 prefersReducedMotion.addEventListener('change', initSmoother);
+
+// Frosted glass on project items when in view
+function initProjectGlass() {
+    if (typeof ScrollTrigger === "undefined") return;
+
+    const rootStyles = getComputedStyle(document.documentElement);
+    const parseRgba = (value) => {
+        const match = value.match(/rgba?\\(([^)]+)\\)/);
+        if (!match) return null;
+        const parts = match[1].split(',').map((p) => parseFloat(p.trim()));
+        if (parts.length === 3) parts.push(1);
+        return { r: parts[0], g: parts[1], b: parts[2], a: parts[3] };
+    };
+    const rgbaWithScale = (rgba, scale, fallback) => {
+        if (!rgba) return fallback;
+        const alpha = Math.max(0, Math.min(1, rgba.a * scale));
+        return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${alpha})`;
+    };
+
+    const navBg = parseRgba(rootStyles.getPropertyValue('--nav-bg') || '');
+    const navBorder = parseRgba(rootStyles.getPropertyValue('--nav-border') || '');
+    const navShadow1 = parseRgba(rootStyles.getPropertyValue('--nav-shadow-1') || '');
+    const navShadow2 = parseRgba(rootStyles.getPropertyValue('--nav-shadow-2') || '');
+
+    const applyGlassState = (el, factor) => {
+        const clamped = Math.max(0, Math.min(1, factor));
+        el.style.backgroundColor = rgbaWithScale(navBg, clamped, `rgba(255,255,255,${0.78 * clamped})`);
+        el.style.borderColor = rgbaWithScale(navBorder, clamped, `rgba(0,0,0,${0.04 * clamped})`);
+
+        if (clamped === 0) {
+            el.style.boxShadow = 'none';
+            el.style.backdropFilter = 'none';
+        } else {
+            const shadow1 = rgbaWithScale(navShadow1, clamped, `rgba(0,0,0,${0.06 * clamped})`);
+            const shadow2 = rgbaWithScale(navShadow2, clamped, `rgba(255,255,255,${0.04 * clamped})`);
+            el.style.boxShadow = `0 18px 40px -18px ${shadow1}, 0 1px 0 0 ${shadow2}`;
+            el.style.backdropFilter = `blur(${(10 * clamped).toFixed(2)}px) saturate(${(100 + 20 * clamped).toFixed(0)}%)`;
+        }
+    };
+
+    document.querySelectorAll('.project-item').forEach((item) => {
+        item.classList.add('project-glass');
+        applyGlassState(item, 0);
+
+        ScrollTrigger.create({
+            trigger: item,
+            start: "top 70%",
+            end: "bottom 30%",
+            scrub: true,
+            onUpdate: (self) => {
+                // Triangle wave: 0 at start/end, 1 at midpoint (50%)
+                const factor = Math.max(0, 1 - Math.abs(self.progress * 2 - 1));
+                applyGlassState(item, factor);
+            }
+        });
+    });
+}
+
+initProjectGlass();
 
 // Theme toggle
 const themeToggleBtn = document.querySelector('.theme-toggle');
