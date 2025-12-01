@@ -453,10 +453,6 @@ nav.nav-container a {
   gap: var(--spacing-lg);
 }
 
-.service-item {
-  /* No border-right needed for clean grid */
-}
-
 .service-title {
   font-size: 1.1rem;
   margin-bottom: var(--spacing-md);
